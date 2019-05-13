@@ -1,2 +1,2 @@
 # pywinscript
-General automation scripts for Windows programs
+General automation scripts for Windows programs.
