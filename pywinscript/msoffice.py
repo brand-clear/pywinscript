@@ -2,6 +2,13 @@
 
 import win32com.client as win32
 from pywintypes import com_error
+from win import start
+from constants import OUTLOOK
+
+
+def start_outlook():
+	"""Start MS Outlook if not already running."""
+	start(OUTLOOK)
 
 
 def send_email(to, cc, subject, body, open_email=False):
@@ -18,12 +25,12 @@ def send_email(to, cc, subject, body, open_email=False):
 	Raises
 	------
 	com_error
-        Generally raised for network-related issues.
+        Generally raised for network-related issues
 
 	Returns
 	-------
 	True
-        Email was sent.
+        Email was sent
 		
 	Notes
 	-----
@@ -49,11 +56,5 @@ def send_email(to, cc, subject, body, open_email=False):
 		return True
 
 
+start_outlook()
 
-# TEST
-# send_email(
-# 	['brandon.mccleary@sulzer.com'],
-# 	['brandon.mccleary@sulzer.com'], 
-# 	'Title', 
-# 	'Body'
-# )
