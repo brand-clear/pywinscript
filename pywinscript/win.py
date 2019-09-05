@@ -1,11 +1,18 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 
 import subprocess
 from os import startfile
 
+__author__ = 'Brandon McCleary'
+__version__ = '1.0.1'
+__maintainer__ = 'Brandon McCleary'
+__email__ = 'brandon.shane.mccleary@gmail.com'
+
 
 def start(program):
-	"""Start a given program if not already running.
+	"""Start an application if not already running.
 
 	Parameters
 	----------
@@ -18,7 +25,8 @@ def start(program):
 
 
 def is_running(program):
-	"""
+	"""Verify that an application is running.
+
 	Parameters
 	----------
 	program : str
@@ -27,7 +35,7 @@ def is_running(program):
 	Returns
 	-------
 	True
-		`program` is running
+		If `program` is running.
 	
 	"""
 	if program in subprocess.check_output('tasklist', shell=True):

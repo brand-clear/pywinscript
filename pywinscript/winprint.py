@@ -1,8 +1,13 @@
-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import win32api
 import win32print
 
+__author__ = 'Brandon McCleary'
+__version__ = '1.0.1'
+__maintainer__ = 'Brandon McCleary'
+__email__ = 'brandon.shane.mccleary@gmail.com'
 
 
 class Printer(object):
