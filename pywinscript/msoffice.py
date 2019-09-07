@@ -10,11 +10,6 @@ from pywintypes import com_error
 from win import start
 from constants import OUTLOOK
 
-__author__ = 'Brandon McCleary'
-__version__ = '1.0.1'
-__maintainer__ = 'Brandon McCleary'
-__email__ = 'brandon.shane.mccleary@gmail.com'
-
 
 def start_outlook():
 	"""Start MS Outlook if not already running."""

@@ -1,9 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Contains constants associated with windows applications.
 
-
-__author__ = 'Brandon McCleary'
-__version__ = '1.0.1'
-__maintainer__ = 'Brandon McCleary'
-__email__ = 'brandon.shane.mccleary@gmail.com'
+"""
 
 OUTLOOK = 'OUTLOOK.EXE'
 INSPECTOR = 'iminspect.exe'
