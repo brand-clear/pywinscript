@@ -1,19 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Contains functions for automating Microsoft Office tasks.
 
-"""
 
 import win32com.client as win32
 from pywintypes import com_error
 from win import start
 from constants import OUTLOOK
-
-__author__ = 'Brandon McCleary'
-__version__ = '1.0.1'
-__maintainer__ = 'Brandon McCleary'
-__email__ = 'brandon.shane.mccleary@gmail.com'
 
 
 def start_outlook():
@@ -30,18 +20,22 @@ def send_email(to, cc, subject, body, open_email=False):
 	cc : list[str]
 	subject : str
 	body : str
-	open_email : bool, optional
+	open_email : {True, False}, optional
 
 	Raises
 	------
 	com_error
-		If network-related issues occur.
+        Generally raised for network-related issues
 
 	Returns
 	-------
 	True
-		If email was sent.
+        Email was sent
 		
+	Notes
+	-----
+	An open instance of MS Outlook is assumed.
+
 	"""
 	try:
 		outlook = win32.Dispatch("Outlook.Application")
@@ -60,4 +54,7 @@ def send_email(to, cc, subject, body, open_email=False):
 		raise
 	else:
 		return True
+
+
+
 
