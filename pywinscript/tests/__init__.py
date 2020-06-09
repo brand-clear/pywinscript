@@ -1,0 +1,4 @@
+"""
+pywinscript tests
+
+"""

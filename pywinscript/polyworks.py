@@ -1,31 +1,39 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""
+pywinscript.polyworks provides an interface to Innovmetric's PolyWorks 
+Inspector.
 
+"""
 import os
-import win32api
-import win32con
-import pythoncom
 import comtypes.client
-import win32com.client as win32
-from pywintypes import com_error
 from win import start
-from constants import POLYWORKS, INSPECTOR
+from constants import POLYWORKS, POLYWORKS_PATH, INSPECTOR
 
 
 class Polyworks(object):
 	"""
-	Provides an interface to InnovMetric PolyWorks commands.
+	An interface to native PolyWorks commands.
+
+	Attributes
+	----------
+	ROOT : str
+		Absolute path to PolyWorks application files.
+	CLSID : str
+		COM object identifier.
+	PW_PATH : str
+		Absolute path to polyworks.exe.
+	INSPECTOR_PATH : str
+		Absolute path to iminspect.exe.
+	MODULES : dict
+	inspector : IIMInspect.CommandCenterCreate
+		A connection to an active project.
 
 	"""
-	# TODO
-	# Consider making ROOT a list of paths. Since IT might install things 
-	# differently from person to person, this might assist the program in 
-	# finding a working path in all cases.
-	ROOT = 'C:\\Program Files\\InnovMetric\\Polyworks MS 2018\\bin'
-	POLYWORKS_PATH = os.path.join(ROOT, POLYWORKS)
-	INSPECTOR_PATH = os.path.join(ROOT, INSPECTOR)
+
+	CLSID = '{23E630FD-A4D5-47AD-A3B2-7D2779FFF888}'
+	PW_PATH = os.path.join(POLYWORKS_PATH, POLYWORKS)
+	INSPECTOR_PATH = os.path.join(POLYWORKS_PATH, INSPECTOR)
 	MODULES = {
-		'polyworks' : POLYWORKS_PATH,
+		'polyworks' : PW_PATH,
 		'inspector' : INSPECTOR_PATH
 		}
 
@@ -33,7 +41,8 @@ class Polyworks(object):
 		pass
 
 	def start_exe(self, module):
-		"""
+		"""Launch EXE if not already running.
+
 		Parameters
 		----------
 		module : {'polyworks', 'inspector'}
@@ -48,36 +57,30 @@ class Polyworks(object):
 		Inspector in the form of PolyWorks' own macro scripting language.
 
 		If inspector is already open this method will grab the current project, 
-		otherwise a new project is created. PolyWorks will handle missing 
-		dongle errors internally so no errors will be raised for that issue.
+		otherwise a new project is created. PolyWorks will handle missing dongle 
+		errors internally so no errors will be raised for that issue.
 
 		Returns
 		-------
-		inspector : project.CommandCenterCreate
-			Connection to the current project.
+		inspector : IIMInspect.CommandCenterCreate
+			A connection to current project.
 
 		Raises
 		------
 		OSError
-			If 'Error loading type library/DLL' (bad path).
+			Error loading type library/DLL (bad path)
+		WindowsError
+			Server execution failed
 
 		"""
-		key = win32api.RegOpenKeyEx(
-			win32con.HKEY_CLASSES_ROOT, 
-			'InnovMetric.PolyWorks.IMInspect', 
-			0, 
-			win32con.KEY_READ
-		)
-		module = comtypes.client.GetModule(self.INSPECTOR_PATH)
-		init = comtypes.client.CreateObject(
-			win32api.RegQueryValue(
-				key, 
-				'CLSID'
-			)
-		)
+		module = comtypes.client.GetModule([self.CLSID, 1, 0])
+		init = comtypes.client.CreateObject('InnovMetric.PolyWorks.IMInspect')
 		project = init.QueryInterface(module.IIMInspect).ProjectGetCurrent()
-		return project.CommandCenterCreate()
+		self.inspector = project.CommandCenterCreate()
+		return self.inspector
 
 
-
-
+if __name__ == '__main__':
+	polyworks = Polyworks()
+	polyworks.connect_to_inspector()
+	# polyworks.start_exe('inspector')

@@ -1,10 +1,7 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-Contains functions for automating Microsoft Office tasks.
+pywinscript.msoffice is a high-level API for automating MS Office programs.
 
 """
-
 import win32com.client as win32
 from pywintypes import com_error
 from win import start
@@ -12,7 +9,7 @@ from constants import OUTLOOK
 
 
 def start_outlook():
-	"""Start MS Outlook if not already running."""
+	"""Ensure that MS Outlook is running."""
 	start(OUTLOOK)
 
 
@@ -30,13 +27,17 @@ def send_email(to, cc, subject, body, open_email=False):
 	Raises
 	------
 	com_error
-		If network-related issues occur.
+        Generally raised for network-related issues
 
 	Returns
 	-------
 	True
-		If email was sent.
+        Email was sent
 		
+	Notes
+	-----
+	An open instance of MS Outlook is assumed.
+
 	"""
 	try:
 		outlook = win32.Dispatch("Outlook.Application")
@@ -55,4 +56,3 @@ def send_email(to, cc, subject, body, open_email=False):
 		raise
 	else:
 		return True
-
