@@ -1,2 +1,2 @@
 # pywinscript
-General automation scripts for Windows programs.
+A high-level OS wrapper that extends the automation of Windows desktops.
