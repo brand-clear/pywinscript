@@ -143,18 +143,18 @@ class CADTable(object):
 					)
 				if col == 0:
 					self.table.SetCellGridLineWeight(
-						row, col, masks[1], self.lw_thick
+						row, col, self.masks[1], self.lw_thick
 					)
 				if col == (self.table.columns - 1):
 					self.table.SetCellGridLineWeight(
-						row, col, masks[2], self.lw_thick)
+						row, col, self.masks[2], self.lw_thick)
 				if row == 0:
 					self.table.SetCellGridLineWeight(
-						row, col, masks[3], self.lw_thick
+						row, col, self.masks[3], self.lw_thick
 					)
 				if row == (self.table.rows - 1):
 					self.table.SetCellGridLineWeight(
-						row, col, masks[0], self.lw_thick
+						row, col, self.masks[0], self.lw_thick
 					)
 
 
